@@ -74,7 +74,7 @@
     counters.forEach((el) => (el.textContent = el.dataset.count));
   }
 
-  /* ---------- Kontaktformular (Versand über FormSubmit, mailto als Fallback) ---------- */
+  /* ---------- Kontaktformular (Versand über kontakt.php, mailto als Fallback) ---------- */
   const form = document.getElementById("contactForm");
   if (form) {
     const statusEl = document.getElementById("formStatus");
@@ -108,12 +108,14 @@
       statusEl.className = "form__status";
 
       try {
-        const res = await fetch(form.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {
+        const res = await fetch(form.action, {
           method: "POST",
           body: data,
           headers: { Accept: "application/json" },
         });
         if (!res.ok) throw new Error("HTTP " + res.status);
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || "Versand fehlgeschlagen");
         form.reset();
         statusEl.textContent = "Vielen Dank! Ihre Nachricht ist bei uns eingegangen – wir melden uns schnellstmöglich.";
         statusEl.classList.add("form__status--ok");

@@ -12,6 +12,7 @@ IT-Service, Support und KI-Automatisierung in Dülmen.
 | `datenschutz.html` | Datenschutzerklärung |
 | `css/style.css` | Komplettes Design-System (responsiv, Animationen) |
 | `js/main.js` | Interaktionen (Navigation, Scroll-Animationen, FAQ, Kontaktformular) |
+| `kontakt.php` | Serverseitiger Versand des Kontaktformulars (PHP, für IONOS) |
 | `assets/favicon.svg` | Favicon |
 
 ## Technik
@@ -20,10 +21,11 @@ IT-Service, Support und KI-Automatisierung in Dülmen.
 - Vollständig responsiv (Desktop, Tablet, Smartphone)
 - SEO-optimiert: Meta-Tags, Open Graph, `LocalBusiness`-Schema (JSON-LD)
 - Barrierearm: semantisches HTML, ARIA-Labels, funktioniert auch ohne JavaScript
-- Kontaktformular sendet direkt über [FormSubmit](https://formsubmit.co) an info@it-razlaf.de
-  (mit Spam-Honeypot; fällt bei Fehlern automatisch auf das E-Mail-Programm des Besuchers zurück).
-  **Wichtig:** Beim allerersten Absenden schickt FormSubmit eine Aktivierungs-E-Mail an
-  info@it-razlaf.de – einmal bestätigen, danach läuft der Versand automatisch.
+- Kontaktformular sendet über das eigene Skript `kontakt.php` (PHP `mail()`, läuft auf
+  IONOS-Webhosting ohne weitere Konfiguration) direkt an info@it-razlaf.de – kein Drittanbieter,
+  mit Spam-Honeypot; fällt bei Fehlern automatisch auf das E-Mail-Programm des Besuchers zurück.
+  **Voraussetzung:** Die Absenderadresse `formular@it-razlaf.de` (konfigurierbar oben in
+  `kontakt.php`) muss zur Domain gehören – bei IONOS ggf. als E-Mail-Adresse oder Alias anlegen.
 
 ## Veröffentlichen
 
