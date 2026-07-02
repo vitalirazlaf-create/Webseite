@@ -74,13 +74,13 @@
     counters.forEach((el) => (el.textContent = el.dataset.count));
   }
 
-  /* ---------- Kontaktformular (mailto) ---------- */
+  /* ---------- Kontaktformular (Versand über FormSubmit, mailto als Fallback) ---------- */
   const form = document.getElementById("contactForm");
   if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (!form.reportValidity()) return;
-      const data = new FormData(form);
+    const statusEl = document.getElementById("formStatus");
+    const submitBtn = document.getElementById("formSubmitBtn");
+
+    const mailtoFallback = (data) => {
       const subject = "Anfrage über it-razlaf.de – " + (data.get("name") || "");
       const body = [
         "Name: " + (data.get("name") || ""),
@@ -95,6 +95,36 @@
         encodeURIComponent(subject) +
         "&body=" +
         encodeURIComponent(body);
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = new FormData(form);
+      if (data.get("_honey")) return; // Spam-Schutz
+
+      submitBtn.disabled = true;
+      statusEl.textContent = "Nachricht wird gesendet …";
+      statusEl.className = "form__status";
+
+      try {
+        const res = await fetch(form.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {
+          method: "POST",
+          body: data,
+          headers: { Accept: "application/json" },
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        form.reset();
+        statusEl.textContent = "Vielen Dank! Ihre Nachricht ist bei uns eingegangen – wir melden uns schnellstmöglich.";
+        statusEl.classList.add("form__status--ok");
+      } catch (err) {
+        // Fallback: E-Mail-Programm des Besuchers öffnen
+        statusEl.textContent = "Der Direktversand hat nicht geklappt – Ihr E-Mail-Programm öffnet sich mit der vorbereiteten Nachricht.";
+        statusEl.classList.add("form__status--error");
+        mailtoFallback(data);
+      } finally {
+        submitBtn.disabled = false;
+      }
     });
   }
 

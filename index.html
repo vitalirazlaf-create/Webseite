@@ -450,8 +450,12 @@
           </ul>
         </div>
         <div class="split__visual reveal">
-          <form class="form" id="contactForm" novalidate>
+          <form class="form" id="contactForm" action="https://formsubmit.co/info@it-razlaf.de" method="POST" novalidate>
             <h3>Nachricht senden</h3>
+            <input type="hidden" name="_subject" value="Neue Anfrage über it-razlaf.de">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
             <div class="form__row">
               <label class="form__field">
                 <span>Name *</span>
@@ -470,11 +474,12 @@
               <span>Ihr Anliegen *</span>
               <textarea name="message" rows="5" required placeholder="Beschreiben Sie kurz Ihr Problem oder Vorhaben …"></textarea>
             </label>
-            <button type="submit" class="btn btn--primary btn--lg btn--block">
+            <button type="submit" class="btn btn--primary btn--lg btn--block" id="formSubmitBtn">
               Nachricht senden
               <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0-4.5-4.5M16 10l-4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <p class="form__hint">Mit dem Absenden öffnet sich Ihr E-Mail-Programm mit der vorbereiteten Nachricht. Ihre Daten werden gemäß unserer <a href="datenschutz.html">Datenschutzerklärung</a> behandelt.</p>
+            <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+            <p class="form__hint">Ihre Nachricht wird direkt an uns übermittelt. Ihre Daten werden gemäß unserer <a href="datenschutz.html">Datenschutzerklärung</a> behandelt.</p>
           </form>
         </div>
       </div>

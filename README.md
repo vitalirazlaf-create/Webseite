@@ -20,7 +20,10 @@ IT-Service, Support und KI-Automatisierung in Dülmen.
 - Vollständig responsiv (Desktop, Tablet, Smartphone)
 - SEO-optimiert: Meta-Tags, Open Graph, `LocalBusiness`-Schema (JSON-LD)
 - Barrierearm: semantisches HTML, ARIA-Labels, funktioniert auch ohne JavaScript
-- Kontaktformular arbeitet ohne Server über das E-Mail-Programm des Besuchers (`mailto`)
+- Kontaktformular sendet direkt über [FormSubmit](https://formsubmit.co) an info@it-razlaf.de
+  (mit Spam-Honeypot; fällt bei Fehlern automatisch auf das E-Mail-Programm des Besuchers zurück).
+  **Wichtig:** Beim allerersten Absenden schickt FormSubmit eine Aktivierungs-E-Mail an
+  info@it-razlaf.de – einmal bestätigen, danach läuft der Versand automatisch.
 
 ## Veröffentlichen
 
